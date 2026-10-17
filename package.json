@@ -1,0 +1,13 @@
+{
+  "name": "artisan-local",
+  "version": "1.0.0",
+  "description": "Hyper-Local Artisan Storefront",
+  "scripts": {
+    "server": "npm run dev --prefix server",
+    "client": "npm run dev --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "dependencies": {
+    "concurrently": "^9.0.1"
+  }
+}
