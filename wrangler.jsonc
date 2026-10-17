@@ -1,9 +1,11 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
   "name": "artisan-local",
   "main": "worker/index.js",
   "compatibility_date": "2026-10-01",
 
+  "build": {
+    "command": "npm run build"
+  },
   // Serve the Vite build. Unknown paths fall back to index.html (React Router).
   // Only /api/* is sent to the Worker; everything else is served from the edge.
   "assets": {
