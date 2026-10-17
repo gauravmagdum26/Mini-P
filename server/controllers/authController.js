@@ -6,13 +6,14 @@ const jwt = require('jsonwebtoken');
 const sendTokenResponse = (user, statusCode, res) => {
   // Create token
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE
+    expiresIn: process.env.JWT_EXPIRE || '30d'
   });
 
   const options = {
     expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
     httpOnly: true,
-    sameSite: 'Strict'
+    sameSite: 'Strict',
+    secure: process.env.NODE_ENV === 'production'
   };
 
   res
@@ -127,7 +128,8 @@ exports.logout = asyncHandler(async (req, res, next) => {
   res.cookie('token', 'none', {
     expires: new Date(Date.now() + 10 * 1000),
     httpOnly: true,
-    sameSite: 'Strict'
+    sameSite: 'Strict',
+    secure: process.env.NODE_ENV === 'production'
   });
 
   res.status(200).json({
